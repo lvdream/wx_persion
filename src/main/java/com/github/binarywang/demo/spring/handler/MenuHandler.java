@@ -1,21 +1,17 @@
 package com.github.binarywang.demo.spring.handler;
 
-import java.util.Map;
-
-import org.springframework.stereotype.Component;
-
 import com.alibaba.fastjson.JSON;
 import com.github.binarywang.demo.spring.builder.AbstractBuilder;
-import com.github.binarywang.demo.spring.builder.ImageBuilder;
 import com.github.binarywang.demo.spring.builder.TextBuilder;
 import com.github.binarywang.demo.spring.dto.WxMenuKey;
 import com.github.binarywang.demo.spring.service.WeixinService;
-
-import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.session.WxSessionManager;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
+import org.springframework.stereotype.Component;
+
+import java.util.Map;
 
 /**
  * 
@@ -42,22 +38,22 @@ public class MenuHandler extends AbstractHandler {
     }
 
     AbstractBuilder builder = null;
-    switch (menuKey.getType()) {
-    case WxConsts.XML_MSG_TEXT:
-      builder = new TextBuilder();
-      break;
-    case WxConsts.XML_MSG_IMAGE:
-      builder = new ImageBuilder();
-      break;
-    case WxConsts.XML_MSG_VOICE:
-      break;
-    case WxConsts.XML_MSG_VIDEO:
-      break;
-    case WxConsts.XML_MSG_NEWS:
-      break;
-    default:
-      break;
-    }
+    builder = new TextBuilder();
+//    switch (menuKey.getType()) {
+//      case WxConsts.XML_MSG_TEXT:
+//      break;
+//    case WxConsts.XML_MSG_IMAGE:
+//      builder = new ImageBuilder();
+//      break;
+//    case WxConsts.XML_MSG_VOICE:
+//      break;
+//    case WxConsts.XML_MSG_VIDEO:
+//      break;
+//    case WxConsts.XML_MSG_NEWS:
+//      break;
+//    default:
+//      break;
+//    }
 
     if (builder != null) {
       try {

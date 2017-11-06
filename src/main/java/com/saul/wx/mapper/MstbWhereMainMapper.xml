@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.saul.wx.dao.MstbWhereMainMapper" >
+  <resultMap id="BaseResultMap" type="com.saul.wx.model.MstbWhereMain" >
+    <id column="mwm_id" property="mwmId" jdbcType="INTEGER" />
+    <result column="mw_id" property="mwId" jdbcType="INTEGER" />
+    <result column="mwm_box_name" property="mwmBoxName" jdbcType="VARCHAR" />
+    <result column="mwm_remark" property="mwmRemark" jdbcType="VARCHAR" />
+    <result column="mwm_address" property="mwmAddress" jdbcType="VARCHAR" />
+    <result column="mwm_imgaes" property="mwmImgaes" jdbcType="VARCHAR" />
+    <result column="mwm_create_time" property="mwmCreateTime" jdbcType="VARCHAR" />
+    <result column="mwm_update_time" property="mwmUpdateTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    mwm_id, mw_id, mwm_box_name, mwm_remark, mwm_address, mwm_imgaes, mwm_create_time, 
+    mwm_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.saul.wx.model.MstbWhereMainCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mstb_where_main
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="page != null" >
+      limit #{page.begin} , #{page.length}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mstb_where_main
+    where mwm_id = #{mwmId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mstb_where_main
+    where mwm_id = #{mwmId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.saul.wx.model.MstbWhereMainCriteria" >
+    delete from mstb_where_main
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.saul.wx.model.MstbWhereMain" >
+    insert into mstb_where_main (mwm_id, mw_id, mwm_box_name, 
+      mwm_remark, mwm_address, mwm_imgaes, 
+      mwm_create_time, mwm_update_time)
+    values (#{mwmId,jdbcType=INTEGER}, #{mwId,jdbcType=INTEGER}, #{mwmBoxName,jdbcType=VARCHAR}, 
+      #{mwmRemark,jdbcType=VARCHAR}, #{mwmAddress,jdbcType=VARCHAR}, #{mwmImgaes,jdbcType=VARCHAR}, 
+      #{mwmCreateTime,jdbcType=VARCHAR}, #{mwmUpdateTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.saul.wx.model.MstbWhereMain" >
+    insert into mstb_where_main
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mwmId != null" >
+        mwm_id,
+      </if>
+      <if test="mwId != null" >
+        mw_id,
+      </if>
+      <if test="mwmBoxName != null" >
+        mwm_box_name,
+      </if>
+      <if test="mwmRemark != null" >
+        mwm_remark,
+      </if>
+      <if test="mwmAddress != null" >
+        mwm_address,
+      </if>
+      <if test="mwmImgaes != null" >
+        mwm_imgaes,
+      </if>
+      <if test="mwmCreateTime != null" >
+        mwm_create_time,
+      </if>
+      <if test="mwmUpdateTime != null" >
+        mwm_update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mwmId != null" >
+        #{mwmId,jdbcType=INTEGER},
+      </if>
+      <if test="mwId != null" >
+        #{mwId,jdbcType=INTEGER},
+      </if>
+      <if test="mwmBoxName != null" >
+        #{mwmBoxName,jdbcType=VARCHAR},
+      </if>
+      <if test="mwmRemark != null" >
+        #{mwmRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="mwmAddress != null" >
+        #{mwmAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="mwmImgaes != null" >
+        #{mwmImgaes,jdbcType=VARCHAR},
+      </if>
+      <if test="mwmCreateTime != null" >
+        #{mwmCreateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="mwmUpdateTime != null" >
+        #{mwmUpdateTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.saul.wx.model.MstbWhereMainCriteria" resultType="java.lang.Integer" >
+    select count(*) from mstb_where_main
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mstb_where_main
+    <set >
+      <if test="record.mwmId != null" >
+        mwm_id = #{record.mwmId,jdbcType=INTEGER},
+      </if>
+      <if test="record.mwId != null" >
+        mw_id = #{record.mwId,jdbcType=INTEGER},
+      </if>
+      <if test="record.mwmBoxName != null" >
+        mwm_box_name = #{record.mwmBoxName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mwmRemark != null" >
+        mwm_remark = #{record.mwmRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mwmAddress != null" >
+        mwm_address = #{record.mwmAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mwmImgaes != null" >
+        mwm_imgaes = #{record.mwmImgaes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mwmCreateTime != null" >
+        mwm_create_time = #{record.mwmCreateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mwmUpdateTime != null" >
+        mwm_update_time = #{record.mwmUpdateTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mstb_where_main
+    set mwm_id = #{record.mwmId,jdbcType=INTEGER},
+      mw_id = #{record.mwId,jdbcType=INTEGER},
+      mwm_box_name = #{record.mwmBoxName,jdbcType=VARCHAR},
+      mwm_remark = #{record.mwmRemark,jdbcType=VARCHAR},
+      mwm_address = #{record.mwmAddress,jdbcType=VARCHAR},
+      mwm_imgaes = #{record.mwmImgaes,jdbcType=VARCHAR},
+      mwm_create_time = #{record.mwmCreateTime,jdbcType=VARCHAR},
+      mwm_update_time = #{record.mwmUpdateTime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.saul.wx.model.MstbWhereMain" >
+    update mstb_where_main
+    <set >
+      <if test="mwId != null" >
+        mw_id = #{mwId,jdbcType=INTEGER},
+      </if>
+      <if test="mwmBoxName != null" >
+        mwm_box_name = #{mwmBoxName,jdbcType=VARCHAR},
+      </if>
+      <if test="mwmRemark != null" >
+        mwm_remark = #{mwmRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="mwmAddress != null" >
+        mwm_address = #{mwmAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="mwmImgaes != null" >
+        mwm_imgaes = #{mwmImgaes,jdbcType=VARCHAR},
+      </if>
+      <if test="mwmCreateTime != null" >
+        mwm_create_time = #{mwmCreateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="mwmUpdateTime != null" >
+        mwm_update_time = #{mwmUpdateTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mwm_id = #{mwmId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.saul.wx.model.MstbWhereMain" >
+    update mstb_where_main
+    set mw_id = #{mwId,jdbcType=INTEGER},
+      mwm_box_name = #{mwmBoxName,jdbcType=VARCHAR},
+      mwm_remark = #{mwmRemark,jdbcType=VARCHAR},
+      mwm_address = #{mwmAddress,jdbcType=VARCHAR},
+      mwm_imgaes = #{mwmImgaes,jdbcType=VARCHAR},
+      mwm_create_time = #{mwmCreateTime,jdbcType=VARCHAR},
+      mwm_update_time = #{mwmUpdateTime,jdbcType=VARCHAR}
+    where mwm_id = #{mwmId,jdbcType=INTEGER}
+  </update>
+</mapper>

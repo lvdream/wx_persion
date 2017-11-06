@@ -43,7 +43,9 @@ public class MsgHandler extends AbstractHandler {
 //        session.setAttribute();
 //        this.logger.info(sessionManager.getSession(wxMessage.getFromUser()));
         //TODO 组装回复消息
-        String content = "回复信息内容";
+        String content = "欢迎来到萨乌的基地,选择你需要操作的功能\n" +
+                "目前可用的应用\n" +
+                "01.在哪(方便记忆自己的物品放在什么地方)";
         return new TextBuilder().build(content, wxMessage, weixinService);
 
     }

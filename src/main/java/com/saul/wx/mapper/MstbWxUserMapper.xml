@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.saul.wx.dao.MstbWxUserMapper" >
+  <resultMap id="BaseResultMap" type="com.saul.wx.model.MstbWxUser" >
+    <id column="mw_id" property="mwId" jdbcType="INTEGER" />
+    <result column="mw_openid" property="mwOpenid" jdbcType="VARCHAR" />
+    <result column="mw_nickname" property="mwNickname" jdbcType="VARCHAR" />
+    <result column="wx_remark" property="wxRemark" jdbcType="VARCHAR" />
+    <result column="wx_sex" property="wxSex" jdbcType="VARCHAR" />
+    <result column="wx_country" property="wxCountry" jdbcType="VARCHAR" />
+    <result column="wx_province" property="wxProvince" jdbcType="VARCHAR" />
+    <result column="wx_city" property="wxCity" jdbcType="VARCHAR" />
+    <result column="wx_district" property="wxDistrict" jdbcType="VARCHAR" />
+    <result column="wx_address" property="wxAddress" jdbcType="VARCHAR" />
+    <result column="wx_headimgurl" property="wxHeadimgurl" jdbcType="VARCHAR" />
+    <result column="wx_scene" property="wxScene" jdbcType="VARCHAR" />
+    <result column="wx_score" property="wxScore" jdbcType="INTEGER" />
+    <result column="wx_subscribe" property="wxSubscribe" jdbcType="VARCHAR" />
+    <result column="wx_tagid" property="wxTagid" jdbcType="VARCHAR" />
+    <result column="wx_create_time" property="wxCreateTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    mw_id, mw_openid, mw_nickname, wx_remark, wx_sex, wx_country, wx_province, wx_city, 
+    wx_district, wx_address, wx_headimgurl, wx_scene, wx_score, wx_subscribe, wx_tagid, 
+    wx_create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.saul.wx.model.MstbWxUserCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mstb_wx_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="page != null" >
+      limit #{page.begin} , #{page.length}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mstb_wx_user
+    where mw_id = #{mwId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mstb_wx_user
+    where mw_id = #{mwId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.saul.wx.model.MstbWxUserCriteria" >
+    delete from mstb_wx_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.saul.wx.model.MstbWxUser" >
+    insert into mstb_wx_user (mw_id, mw_openid, mw_nickname, 
+      wx_remark, wx_sex, wx_country, 
+      wx_province, wx_city, wx_district, 
+      wx_address, wx_headimgurl, wx_scene, 
+      wx_score, wx_subscribe, wx_tagid, 
+      wx_create_time)
+    values (#{mwId,jdbcType=INTEGER}, #{mwOpenid,jdbcType=VARCHAR}, #{mwNickname,jdbcType=VARCHAR}, 
+      #{wxRemark,jdbcType=VARCHAR}, #{wxSex,jdbcType=VARCHAR}, #{wxCountry,jdbcType=VARCHAR}, 
+      #{wxProvince,jdbcType=VARCHAR}, #{wxCity,jdbcType=VARCHAR}, #{wxDistrict,jdbcType=VARCHAR}, 
+      #{wxAddress,jdbcType=VARCHAR}, #{wxHeadimgurl,jdbcType=VARCHAR}, #{wxScene,jdbcType=VARCHAR}, 
+      #{wxScore,jdbcType=INTEGER}, #{wxSubscribe,jdbcType=VARCHAR}, #{wxTagid,jdbcType=VARCHAR}, 
+      #{wxCreateTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.saul.wx.model.MstbWxUser" >
+    insert into mstb_wx_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mwId != null" >
+        mw_id,
+      </if>
+      <if test="mwOpenid != null" >
+        mw_openid,
+      </if>
+      <if test="mwNickname != null" >
+        mw_nickname,
+      </if>
+      <if test="wxRemark != null" >
+        wx_remark,
+      </if>
+      <if test="wxSex != null" >
+        wx_sex,
+      </if>
+      <if test="wxCountry != null" >
+        wx_country,
+      </if>
+      <if test="wxProvince != null" >
+        wx_province,
+      </if>
+      <if test="wxCity != null" >
+        wx_city,
+      </if>
+      <if test="wxDistrict != null" >
+        wx_district,
+      </if>
+      <if test="wxAddress != null" >
+        wx_address,
+      </if>
+      <if test="wxHeadimgurl != null" >
+        wx_headimgurl,
+      </if>
+      <if test="wxScene != null" >
+        wx_scene,
+      </if>
+      <if test="wxScore != null" >
+        wx_score,
+      </if>
+      <if test="wxSubscribe != null" >
+        wx_subscribe,
+      </if>
+      <if test="wxTagid != null" >
+        wx_tagid,
+      </if>
+      <if test="wxCreateTime != null" >
+        wx_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mwId != null" >
+        #{mwId,jdbcType=INTEGER},
+      </if>
+      <if test="mwOpenid != null" >
+        #{mwOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="mwNickname != null" >
+        #{mwNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="wxRemark != null" >
+        #{wxRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="wxSex != null" >
+        #{wxSex,jdbcType=VARCHAR},
+      </if>
+      <if test="wxCountry != null" >
+        #{wxCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="wxProvince != null" >
+        #{wxProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="wxCity != null" >
+        #{wxCity,jdbcType=VARCHAR},
+      </if>
+      <if test="wxDistrict != null" >
+        #{wxDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="wxAddress != null" >
+        #{wxAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="wxHeadimgurl != null" >
+        #{wxHeadimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="wxScene != null" >
+        #{wxScene,jdbcType=VARCHAR},
+      </if>
+      <if test="wxScore != null" >
+        #{wxScore,jdbcType=INTEGER},
+      </if>
+      <if test="wxSubscribe != null" >
+        #{wxSubscribe,jdbcType=VARCHAR},
+      </if>
+      <if test="wxTagid != null" >
+        #{wxTagid,jdbcType=VARCHAR},
+      </if>
+      <if test="wxCreateTime != null" >
+        #{wxCreateTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.saul.wx.model.MstbWxUserCriteria" resultType="java.lang.Integer" >
+    select count(*) from mstb_wx_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mstb_wx_user
+    <set >
+      <if test="record.mwId != null" >
+        mw_id = #{record.mwId,jdbcType=INTEGER},
+      </if>
+      <if test="record.mwOpenid != null" >
+        mw_openid = #{record.mwOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mwNickname != null" >
+        mw_nickname = #{record.mwNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxRemark != null" >
+        wx_remark = #{record.wxRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxSex != null" >
+        wx_sex = #{record.wxSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxCountry != null" >
+        wx_country = #{record.wxCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxProvince != null" >
+        wx_province = #{record.wxProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxCity != null" >
+        wx_city = #{record.wxCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxDistrict != null" >
+        wx_district = #{record.wxDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxAddress != null" >
+        wx_address = #{record.wxAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxHeadimgurl != null" >
+        wx_headimgurl = #{record.wxHeadimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxScene != null" >
+        wx_scene = #{record.wxScene,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxScore != null" >
+        wx_score = #{record.wxScore,jdbcType=INTEGER},
+      </if>
+      <if test="record.wxSubscribe != null" >
+        wx_subscribe = #{record.wxSubscribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxTagid != null" >
+        wx_tagid = #{record.wxTagid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxCreateTime != null" >
+        wx_create_time = #{record.wxCreateTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mstb_wx_user
+    set mw_id = #{record.mwId,jdbcType=INTEGER},
+      mw_openid = #{record.mwOpenid,jdbcType=VARCHAR},
+      mw_nickname = #{record.mwNickname,jdbcType=VARCHAR},
+      wx_remark = #{record.wxRemark,jdbcType=VARCHAR},
+      wx_sex = #{record.wxSex,jdbcType=VARCHAR},
+      wx_country = #{record.wxCountry,jdbcType=VARCHAR},
+      wx_province = #{record.wxProvince,jdbcType=VARCHAR},
+      wx_city = #{record.wxCity,jdbcType=VARCHAR},
+      wx_district = #{record.wxDistrict,jdbcType=VARCHAR},
+      wx_address = #{record.wxAddress,jdbcType=VARCHAR},
+      wx_headimgurl = #{record.wxHeadimgurl,jdbcType=VARCHAR},
+      wx_scene = #{record.wxScene,jdbcType=VARCHAR},
+      wx_score = #{record.wxScore,jdbcType=INTEGER},
+      wx_subscribe = #{record.wxSubscribe,jdbcType=VARCHAR},
+      wx_tagid = #{record.wxTagid,jdbcType=VARCHAR},
+      wx_create_time = #{record.wxCreateTime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.saul.wx.model.MstbWxUser" >
+    update mstb_wx_user
+    <set >
+      <if test="mwOpenid != null" >
+        mw_openid = #{mwOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="mwNickname != null" >
+        mw_nickname = #{mwNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="wxRemark != null" >
+        wx_remark = #{wxRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="wxSex != null" >
+        wx_sex = #{wxSex,jdbcType=VARCHAR},
+      </if>
+      <if test="wxCountry != null" >
+        wx_country = #{wxCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="wxProvince != null" >
+        wx_province = #{wxProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="wxCity != null" >
+        wx_city = #{wxCity,jdbcType=VARCHAR},
+      </if>
+      <if test="wxDistrict != null" >
+        wx_district = #{wxDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="wxAddress != null" >
+        wx_address = #{wxAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="wxHeadimgurl != null" >
+        wx_headimgurl = #{wxHeadimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="wxScene != null" >
+        wx_scene = #{wxScene,jdbcType=VARCHAR},
+      </if>
+      <if test="wxScore != null" >
+        wx_score = #{wxScore,jdbcType=INTEGER},
+      </if>
+      <if test="wxSubscribe != null" >
+        wx_subscribe = #{wxSubscribe,jdbcType=VARCHAR},
+      </if>
+      <if test="wxTagid != null" >
+        wx_tagid = #{wxTagid,jdbcType=VARCHAR},
+      </if>
+      <if test="wxCreateTime != null" >
+        wx_create_time = #{wxCreateTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mw_id = #{mwId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.saul.wx.model.MstbWxUser" >
+    update mstb_wx_user
+    set mw_openid = #{mwOpenid,jdbcType=VARCHAR},
+      mw_nickname = #{mwNickname,jdbcType=VARCHAR},
+      wx_remark = #{wxRemark,jdbcType=VARCHAR},
+      wx_sex = #{wxSex,jdbcType=VARCHAR},
+      wx_country = #{wxCountry,jdbcType=VARCHAR},
+      wx_province = #{wxProvince,jdbcType=VARCHAR},
+      wx_city = #{wxCity,jdbcType=VARCHAR},
+      wx_district = #{wxDistrict,jdbcType=VARCHAR},
+      wx_address = #{wxAddress,jdbcType=VARCHAR},
+      wx_headimgurl = #{wxHeadimgurl,jdbcType=VARCHAR},
+      wx_scene = #{wxScene,jdbcType=VARCHAR},
+      wx_score = #{wxScore,jdbcType=INTEGER},
+      wx_subscribe = #{wxSubscribe,jdbcType=VARCHAR},
+      wx_tagid = #{wxTagid,jdbcType=VARCHAR},
+      wx_create_time = #{wxCreateTime,jdbcType=VARCHAR}
+    where mw_id = #{mwId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,29 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-  xmlns:util="http://www.springframework.org/schema/util"
-  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <context:component-scan base-package="com.github.binarywang.demo.spring">
-    <context:exclude-filter type="annotation"
-      expression="org.springframework.stereotype.Controller" />
-  </context:component-scan>
+    <context:component-scan base-package="com.github.binarywang.demo.spring">
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
-  <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
-    <property name="messageConverters">
-      <list>
-        <bean
-          class="org.springframework.http.converter.StringHttpMessageConverter">
-          <constructor-arg>
-            <value>UTF-8</value>
-          </constructor-arg>
-        </bean>
-        <bean
-          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
-      </list>
-    </property>
-  </bean>
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+        <property name="messageConverters">
+            <list>
+                <bean
+                        class="org.springframework.http.converter.StringHttpMessageConverter">
+                    <constructor-arg>
+                        <value>UTF-8</value>
+                    </constructor-arg>
+                </bean>
+                <bean
+                        class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+            </list>
+        </property>
+    </bean>
+    <bean id="mysqldataSource" class="com.jolbox.bonecp.BoneCPDataSource"
+          destroy-method="close">
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxConnectionsPerPartition" value="${jdbc.maxConnectionsPerPartition}"/>
+        <property name="minConnectionsPerPartition" value="${jdbc.minConnectionsPerPartition}"/>
+        <property name="partitionCount" value="${jdbc.partitionCount}"/>
+        <property name="acquireIncrement" value="${jdbc.acquireIncrement}"/>
+        <property name="statementsCacheSize" value="${jdbc.statementsCacheSize}"/>
+    </bean>
+    <!-- mybatis文件配置，扫描所有mapper文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
+          p:dataSource-ref="mysqldataSource" p:configLocation="classpath:mybatis-cfg.xml"
+          p:mapperLocations="classpath:com/saul/wx/mapper/*Mapper.xml"/>
+    <!-- configLocation为mybatis属性 mapperLocations为所有mapper -->
+
+    <!-- spring与mybatis整合配置，扫描所有dao -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+          p:basePackage="com.fangda.skylot.mathine.dao" p:sqlSessionFactoryBeanName="sqlSessionFactory"/>
+
+    <!-- 对数据源进行事务管理 -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+          p:dataSource-ref="mysqldataSource"/>
 
 </beans>
